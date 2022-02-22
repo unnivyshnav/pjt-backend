@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Student = require("../models/Student");
 const Employee = require("../models/Employee");
 const Admin = require("../models/Admin");
-const CryptoJS = require("crypto-js");
+// const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 //Student Registration
@@ -10,10 +10,11 @@ router.post("/student-register", async (req, res) => {
   const newStudent = new Student({
     name: req.body.name,
     email: req.body.email,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.SECRET_KEY
-    ).toString(),
+    // password: CryptoJS.AES.encrypt(
+    //   req.body.password,
+    //   process.env.SECRET_KEY
+    // ).toString(),
+    password: req.body.password,
     address: req.body.address,
     phone: req.body.phone,
     qualification: req.body.qualification,
@@ -38,10 +39,11 @@ router.post("/employee-register", async (req, res) => {
   const newEmployee = new Employee({
     name: req.body.name,
     email: req.body.email,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.SECRET_KEY
-    ).toString(),
+    // password: CryptoJS.AES.encrypt(
+    //   req.body.password,
+    //   process.env.SECRET_KEY
+    // ).toString(),
+    password: req.body.password,
   });
 
   try {
@@ -58,12 +60,13 @@ router.post("/login/student", async (req, res) => {
     const student = await Student.findOne({ email: req.body.email });
     !student && res.status(401).json("Wrong Password or Username");
 
-    const bytes = CryptoJS.AES.decrypt(
-      student.password,
-      process.env.SECRET_KEY
-    );
-    const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-    originalPassword !== req.body.password &&
+    // const bytes = CryptoJS.AES.decrypt(
+    //   student.password,
+    //   process.env.SECRET_KEY
+    // );
+    // const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+    // originalPassword !== req.body.password &&
+    student.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
     const acessToken = jwt.sign(
       {
@@ -89,12 +92,13 @@ router.post("/login/employee", async (req, res) => {
     const employee = await Employee.findOne({ email: req.body.email });
     !employee && res.status(401).json("Wrong Password or Username");
 
-    const bytes = CryptoJS.AES.decrypt(
-      employee.password,
-      process.env.SECRET_KEY
-    );
-    const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-    originalPassword !== req.body.password &&
+    // const bytes = CryptoJS.AES.decrypt(
+    //   employee.password,
+    //   process.env.SECRET_KEY
+    // );
+    // const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+    // originalPassword !== req.body.password &&
+    employee.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
     const acessToken = jwt.sign(
       {
@@ -120,9 +124,10 @@ router.post("/login/admin", async (req, res) => {
     const admin = await Admin.findOne({ username: req.body.username });
     !admin && res.status(401).json("Wrong Password or Username");
 
-    const bytes = CryptoJS.AES.decrypt(admin.password, process.env.SECRET_KEY);
-    const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-    originalPassword !== req.body.password &&
+    // const bytes = CryptoJS.AES.decrypt(admin.password, process.env.SECRET_KEY);
+    // const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+    // originalPassword !== req.body.password &&
+    admin.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
     const acessToken = jwt.sign(
       {
