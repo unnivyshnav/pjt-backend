@@ -5,7 +5,7 @@ const EmployeeSchema = new mongoose.Schema(
     name: { type: String },
     email: { type: String },
     password: { type: String },
-    photo: { type: String, defaut: "" },
+    photo: { type: String, default: "" },
     isAdmin: { type: Boolean, default: false },
     isEmployee: { type: Boolean, default: true },
     isStudent: { type: Boolean, default: false },
