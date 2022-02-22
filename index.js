@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
 const studentRoute = require("./routes/student");
+const employeeRoute = require("./routes/employee");
+const courseRoute = require("./routes/course");
 const path = require("path");
 const multer = require("multer");
 const cors = require("cors");
@@ -44,5 +46,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 
 app.use("/api/auth", authRoute);
 app.use("/api/student", studentRoute);
+app.use("/api/employee", employeeRoute);
+app.use("/api/course", courseRoute);
 
 app.listen(process.env.PORT || 5000, () => console.log("server started"));
