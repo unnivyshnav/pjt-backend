@@ -17,10 +17,13 @@ app.use("/images", express.static(path.join(__dirname, "/images")));
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://admin:secure@cluster0.0pxvx.mongodb.net/enrollment?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
 
