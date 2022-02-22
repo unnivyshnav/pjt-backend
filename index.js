@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
+const studentRoute = require("./routes/student");
 const path = require("path");
 const multer = require("multer");
 const cors = require("cors");
@@ -42,5 +43,6 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 app.use("/api/auth", authRoute);
+app.use("/api/student", studentRoute);
 
 app.listen(process.env.PORT || 5000, () => console.log("server started"));

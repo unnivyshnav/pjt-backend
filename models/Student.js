@@ -18,6 +18,8 @@ const StudentSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     isEmployee: { type: Boolean, default: false },
     isStudent: { type: Boolean, default: true },
+    isPaid: { type: Boolean, default: false },
+    fee: { type: Number },
   },
   { timestamps: true }
 );
