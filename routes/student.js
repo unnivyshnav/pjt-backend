@@ -59,6 +59,38 @@ router.get("/", verify, async (req, res) => {
     res.status(403).json("You are not allowed to see all students!");
   }
 });
-//get user stats
 
+//get students pending approvel
+router.get("/approve", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const students = await Student.find({ isApproved: false });
+      res.status(200).json(students);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not allowed to see the students");
+  }
+});
+
+// approve student
+router.put("/approve/:id", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const updateStudent = await Student.findByIdAndUpdate(
+        req.params.id,
+        {
+          isApproved: true,
+        },
+        { new: true }
+      );
+      res.status(200).json(updateStudent);
+    } catch (err) {
+      //   res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("you can updat your own account");
+  }
+});
 module.exports = router;
