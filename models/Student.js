@@ -6,6 +6,7 @@ const StudentSchema = new mongoose.Schema(
     email: { type: String },
     password: { type: String },
     phone: { type: Number },
+    place: { type: String },
     address: { type: String },
     qualification: { type: String },
     passOutYear: { type: String },
@@ -20,6 +21,7 @@ const StudentSchema = new mongoose.Schema(
     isStudent: { type: Boolean, default: true },
     isPaid: { type: Boolean, default: false },
     fee: { type: Number },
+    exitExamMark: { type: Number },
     isApproved: { type: Boolean, default: false },
   },
   { timestamps: true }
