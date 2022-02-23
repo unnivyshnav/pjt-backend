@@ -63,11 +63,11 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-//get all students
+//get approved students
 router.get("/", verify, async (req, res) => {
   if (req.user.isAdmin || req.user.isEmployee) {
     try {
-      const students = await Student.find();
+      const students = await Student.find({ isApproved: true });
       res.status(200).json(students);
     } catch (err) {
       res.status(500).json(err);
