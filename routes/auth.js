@@ -24,6 +24,8 @@ router.post("/student-register", async (req, res) => {
     technologyTraining: req.body.technologyTraining,
     year: req.body.year,
     course: req.body.course,
+    photo: req.body.photo,
+    place: req.body.place,
   });
 
   try {
