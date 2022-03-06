@@ -70,7 +70,7 @@ router.post("/login/student", async (req, res) => {
     // originalPassword !== req.body.password &&
     student.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
-    const acessToken = jwt.sign(
+    const accessToken = jwt.sign(
       {
         id: student._id,
         isAdmin: student.isAdmin,
@@ -82,7 +82,7 @@ router.post("/login/student", async (req, res) => {
     );
     const { password, ...info } = student._doc;
 
-    res.status(200).json({ ...info, acessToken });
+    res.status(200).json({ ...info, accessToken });
   } catch (err) {
     // res.status(500).json(err);
   }
@@ -102,7 +102,7 @@ router.post("/login/employee", async (req, res) => {
     // originalPassword !== req.body.password &&
     employee.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
-    const acessToken = jwt.sign(
+    const accessToken = jwt.sign(
       {
         id: employee._id,
         isAdmin: employee.isAdmin,
@@ -114,7 +114,7 @@ router.post("/login/employee", async (req, res) => {
     );
     const { password, ...info } = employee._doc;
 
-    res.status(200).json({ ...info, acessToken });
+    res.status(200).json({ ...info, accessToken });
   } catch (err) {
     // res.status(500).json(err);
   }
@@ -131,7 +131,7 @@ router.post("/login/admin", async (req, res) => {
     // originalPassword !== req.body.password &&
     admin.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
-    const acessToken = jwt.sign(
+    const accessToken = jwt.sign(
       {
         id: admin._id,
         isAdmin: admin.isAdmin,
@@ -141,7 +141,7 @@ router.post("/login/admin", async (req, res) => {
     );
     const { password, ...info } = admin._doc;
 
-    res.status(200).json({ ...info, acessToken });
+    res.status(200).json({ ...info, accessToken });
   } catch (err) {
     // res.status(500).json(err);
   }
