@@ -1,4 +1,4 @@
-This is the The ExpressJS backend code of my student enrollment website project
+This is the The ExpressJS backend code of my student enrollment website project.
 
 
 The SRS of the project is as follows
