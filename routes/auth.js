@@ -26,7 +26,9 @@ router.post("/student-register", async (req, res) => {
     course: req.body.course,
     photo: req.body.photo,
     place: req.body.place,
+    fee: req.body.fee,
   });
+  console.log(newStudent);
 
   try {
     const student = await newStudent.save();

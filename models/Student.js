@@ -20,7 +20,7 @@ const StudentSchema = new mongoose.Schema(
     isEmployee: { type: Boolean, default: false },
     isStudent: { type: Boolean, default: true },
     isPaid: { type: Boolean, default: false },
-    fee: { type: Number },
+    fee: { type: Number, default: 00 },
     exitExamMark: { type: String, default: "NA" },
     isApproved: { type: Boolean, default: false },
   },
