@@ -53,7 +53,17 @@ router.delete("/:id", verify, async (req, res) => {
     res.status(403).json("you can delete your own account");
   }
 });
-//get
+
+//get all students
+router.get("/all", async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.status(200).json(students);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+//get a student
 router.get("/find/:id", async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
