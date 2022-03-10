@@ -46,19 +46,29 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-//get all employee
-router.get("/", verify, async (req, res) => {
-  if (req.user.isAdmin) {
-    try {
-      const employee = await Employee.find();
-      res.status(200).json(employee);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(403).json("You are not allowed to see all employees!");
+//get all employee original
+// router.get("/", verify, async (req, res) => {
+//   if (req.user.isAdmin) {
+//     try {
+//       const employee = await Employee.find();
+//       res.status(200).json(employee);
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   } else {
+//     res.status(403).json("You are not allowed to see all employees!");
+//   }
+// });
+
+//test
+
+router.get("/", async (req, res) => {
+  try {
+    const employee = await Employee.find();
+    res.status(200).json(employee);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
-//get user stats
 
 module.exports = router;

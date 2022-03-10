@@ -48,6 +48,10 @@ router.post("/employee-register", async (req, res) => {
     //   process.env.SECRET_KEY
     // ).toString(),
     password: req.body.password,
+    photo: req.body.photo,
+    phone: req.body.phone,
+    address: req.body.address,
+    role: req.body.role,
   });
 
   try {
