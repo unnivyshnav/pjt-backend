@@ -12,6 +12,7 @@ const EmployeeSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     isEmployee: { type: Boolean, default: true },
     isStudent: { type: Boolean, default: false },
+    isApproved: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
