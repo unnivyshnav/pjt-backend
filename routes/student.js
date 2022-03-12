@@ -56,18 +56,28 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-//delete
+//delete original
 
-router.delete("/:id", verify, async (req, res) => {
-  if (req.user.id === req.params.id || req.user.isAdmin) {
-    try {
-      await Student.findByIdAndDelete(req.params.id);
-      res.status(200).json("User has been deleted");
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(403).json("you can delete your own account");
+// router.delete("/:id", verify, async (req, res) => {
+//   if (req.user.id === req.params.id || req.user.isAdmin) {
+//     try {
+//       await Student.findByIdAndDelete(req.params.id);
+//       res.status(200).json("User has been deleted");
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   } else {
+//     res.status(403).json("you can delete your own account");
+//   }
+// });
+
+//delete test case
+router.delete("/:id", async (req, res) => {
+  try {
+    await Student.findByIdAndDelete(req.params.id);
+    res.status(200).json("User has been deleted");
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
@@ -90,17 +100,27 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-//get approved students
-router.get("/", verify, async (req, res) => {
-  if (req.user.isAdmin || req.user.isEmployee) {
-    try {
-      const students = await Student.find({ isApproved: true });
-      res.status(200).json(students);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(403).json("You are not allowed to see all students!");
+//get approved students original
+// router.get("/", verify, async (req, res) => {
+//   if (req.user.isAdmin || req.user.isEmployee) {
+//     try {
+//       const students = await Student.find({ isApproved: true });
+//       res.status(200).json(students);
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   } else {
+//     res.status(403).json("You are not allowed to see all students!");
+//   }
+// });
+
+// get approved students test
+router.get("/", async (req, res) => {
+  try {
+    const students = await Student.find({ isApproved: true });
+    res.status(200).json(students);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
