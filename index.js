@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const studentRoute = require("./routes/student");
 const employeeRoute = require("./routes/employee");
 const courseRoute = require("./routes/course");
+const paymentRoute = require("./routes/payment");
 const path = require("path");
 const multer = require("multer");
 const cors = require("cors");
@@ -46,5 +47,6 @@ app.use("/api/auth", authRoute);
 app.use("/api/student", studentRoute);
 app.use("/api/employee", employeeRoute);
 app.use("/api/course", courseRoute);
+app.use("/api/payment", paymentRoute);
 
 app.listen(process.env.PORT || 5000, () => console.log("server started"));
