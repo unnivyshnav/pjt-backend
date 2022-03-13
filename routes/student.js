@@ -221,7 +221,7 @@ router.put("/approve/:id", async (req, res) => {
     );
     const student = await Student.findById(req.params.id);
     var studentID = student._id.toString();
-    studentID = studentID.substring(0, 3);
+    studentID = studentID.substring(7, 11);
     console.log(studentID);
     var studentCourse = student.course;
     studentCourse = studentCourse.substring(0, 4);
@@ -233,7 +233,7 @@ router.put("/approve/:id", async (req, res) => {
       },
       { new: true }
     );
-
+    res.status(200).json(updateStudent);
     const mailid = student.email;
     const message = "hi";
     const sub = "hi";
