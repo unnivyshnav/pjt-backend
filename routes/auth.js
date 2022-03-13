@@ -76,7 +76,7 @@ router.post("/login/student", async (req, res) => {
     // originalPassword !== req.body.password &&
     student.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
-    !student.isApproved && res.status(401).json("Not Approved by admin");
+    !student.isApproved && res.status(403).json("Not Approved by admin");
     const accessToken = jwt.sign(
       {
         id: student._id,
