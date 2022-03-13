@@ -71,4 +71,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get approved students test
+router.get("/", async (req, res) => {
+  try {
+    const employee = await Employee.find({ isApproved: true });
+    res.status(200).json(employee);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+//approve employee test case
+router.put("/approve/:id", async (req, res) => {
+  try {
+    const updateEmployee = await Employee.findByIdAndUpdate(
+      req.params.id,
+      {
+        isApproved: true,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updateEmployee);
+  } catch {}
+});
 module.exports = router;
