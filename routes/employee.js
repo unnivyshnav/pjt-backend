@@ -80,6 +80,16 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+//get employees pending approvel
+router.get("/approve", async (req, res) => {
+  try {
+    const employees = await Employee.find({ isApproved: false });
+    res.status(200).json(employees);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //approve employee test case
 router.put("/approve/:id", async (req, res) => {
   try {
