@@ -16,6 +16,7 @@ const StudentSchema = new mongoose.Schema(
     year: { type: Number },
     course: { type: String },
     photo: { type: String, default: "" },
+    studentid: { type: String, default: "" },
     isAdmin: { type: Boolean, default: false },
     isStudent: { type: Boolean, default: true },
     isEmployee: { type: Boolean, default: false },

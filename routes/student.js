@@ -220,7 +220,20 @@ router.put("/approve/:id", async (req, res) => {
       { new: true }
     );
     const student = await Student.findById(req.params.id);
-    res.status(200).json(updateStudent);
+    var studentID = student._id.toString();
+    studentID = studentID.substring(0, 3);
+    console.log(studentID);
+    var studentCourse = student.course;
+    studentCourse = studentCourse.substring(0, 4);
+    studentID = studentCourse + studentID;
+    const updateStudentID = await Student.findByIdAndUpdate(
+      req.params.id,
+      {
+        studentid: studentID,
+      },
+      { new: true }
+    );
+
     const mailid = student.email;
     const message = "hi";
     const sub = "hi";
