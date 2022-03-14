@@ -46,7 +46,8 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-// get all employee original
+
+// get all employee
 router.get("/", verify, async (req, res) => {
   if (req.user.isAdmin) {
     try {
@@ -60,18 +61,7 @@ router.get("/", verify, async (req, res) => {
   }
 });
 
-//test
-
-// router.get("/", async (req, res) => {
-//   try {
-//     const employee = await Employee.find();
-//     res.status(200).json(employee);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-// get approved employees test
+// get approved employees
 router.get("/", verify, async (req, res) => {
   if (req.user.isAdmin) {
     try {
@@ -98,18 +88,22 @@ router.get("/approve", verify, async (req, res) => {
   }
 });
 
-//approve employee test case
-router.put("/approve/:id", async (req, res) => {
-  try {
-    const updateEmployee = await Employee.findByIdAndUpdate(
-      req.params.id,
-      {
-        isApproved: true,
-      },
-      { new: true }
-    );
+//approve
+router.put("/approve/:id", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const updateEmployee = await Employee.findByIdAndUpdate(
+        req.params.id,
+        {
+          isApproved: true,
+        },
+        { new: true }
+      );
 
-    res.status(200).json(updateEmployee);
-  } catch {}
+      res.status(200).json(updateEmployee);
+    } catch {}
+  } else {
+    res.status(403).json("You are not allowed employees!");
+  }
 });
 module.exports = router;
