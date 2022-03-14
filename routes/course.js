@@ -18,40 +18,40 @@ router.post("/", verify, async (req, res) => {
 });
 
 //Update original
-// router.put("/:id", verify, async (req, res) => {
-//   if (req.user.isAdmin) {
-//     try {
-//       const updateCourse = await Course.findByIdAndUpdate(
-//         req.params.id,
-//         {
-//           $set: req.body,
-//         },
-//         { new: true }
-//       );
-//       res.status(200).json(updateCourse);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   } else {
-//     res.status(403).json("Only admin can update course");
-//   }
-// });
-
-// update test
-router.put("/:id", async (req, res) => {
-  try {
-    const updateCourse = await Course.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updateCourse);
-  } catch (err) {
-    res.status(500).json(err);
+router.put("/:id", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const updateCourse = await Course.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+      res.status(200).json(updateCourse);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("Only admin can update course");
   }
 });
+
+// update test
+// router.put("/:id", async (req, res) => {
+//   try {
+//     const updateCourse = await Course.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         $set: req.body,
+//       },
+//       { new: true }
+//     );
+//     res.status(200).json(updateCourse);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 //delete original
 
