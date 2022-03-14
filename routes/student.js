@@ -56,23 +56,28 @@ router.delete("/:id", verify, async (req, res) => {
 });
 
 //get all students
-router.get("/all", async (req, res) => {
-  try {
-    const students = await Student.find();
-    res.status(200).json(students);
-  } catch (err) {
-    res.status(500).json(err);
+router.get("/all", verify, async (req, res) => {
+  if (req.user.isAdmin || req.user.isEmployee) {
+    try {
+      const students = await Student.find();
+      res.status(200).json(students);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("Unauthorized");
   }
 });
 //get a student
-router.get("/find/:id", async (req, res) => {
-  try {
-    const student = await Student.findById(req.params.id);
-    const { password, ...info } = student._doc;
-    res.status(200).json(info);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+router.get("/find/:id", verify, async (req, res) => {
+  if (req.user.isAdmin || req.user.isEmployee || req.user.id === req.params.id)
+    try {
+      const student = await Student.findById(req.params.id);
+      const { password, ...info } = student._doc;
+      res.status(200).json(info);
+    } catch (err) {
+      res.status(500).json(err);
+    }
 });
 //get approved students original
 // router.get("/", verify, async (req, res) => {
