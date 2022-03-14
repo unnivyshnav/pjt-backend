@@ -98,26 +98,16 @@ router.get("/", verify, async (req, res) => {
 });
 
 //get students pending approvel original
-// router.get("/approve", verify, async (req, res) => {
-//   if (req.user.isAdmin) {
-//     try {
-//       const students = await Student.find({ isApproved: false });
-//       res.status(200).json(students);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   } else {
-//     res.status(403).json("You are not allowed to see the students");
-//   }
-// });
-
-//testcase
-router.get("/approve", async (req, res) => {
-  try {
-    const students = await Student.find({ isApproved: false });
-    res.status(200).json(students);
-  } catch (err) {
-    res.status(500).json(err);
+router.get("/approve", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const students = await Student.find({ isApproved: false });
+      res.status(200).json(students);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not allowed to see the students");
   }
 });
 
