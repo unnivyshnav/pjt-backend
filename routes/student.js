@@ -22,7 +22,11 @@ oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 // Update original
 
 router.put("/:id", verify, async (req, res) => {
-  if (req.user.id === req.params.id || req.user.isAdmin) {
+  if (
+    req.user.id === req.params.id ||
+    req.user.isAdmin ||
+    req.user.isEmployee
+  ) {
     try {
       const updateStudent = await Student.findByIdAndUpdate(
         req.params.id,
