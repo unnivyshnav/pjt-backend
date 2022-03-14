@@ -52,16 +52,6 @@ router.delete("/:id", verify, async (req, res) => {
   }
 });
 
-//delete test
-// router.delete("/:id", async (req, res) => {
-//   try {
-//     await Course.findByIdAndDelete(req.params.id);
-//     res.status(200).json("Course has been deleted");
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
 //get
 router.get("/find/:id", async (req, res) => {
   try {

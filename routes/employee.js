@@ -46,19 +46,19 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-//get all employee original
-// router.get("/", verify, async (req, res) => {
-//   if (req.user.isAdmin) {
-//     try {
-//       const employee = await Employee.find();
-//       res.status(200).json(employee);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   } else {
-//     res.status(403).json("You are not allowed to see all employees!");
-//   }
-// });
+// get all employee original
+router.get("/", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const employee = await Employee.find();
+      res.status(200).json(employee);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not allowed to see all employees!");
+  }
+});
 
 //test
 
@@ -72,21 +72,29 @@ router.get("/find/:id", async (req, res) => {
 // });
 
 // get approved employees test
-router.get("/", async (req, res) => {
-  try {
-    const employee = await Employee.find({ isApproved: true });
-    res.status(200).json(employee);
-  } catch (err) {
-    res.status(500).json(err);
+router.get("/", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const employee = await Employee.find({ isApproved: true });
+      res.status(200).json(employee);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not allowed to see all employees!");
   }
 });
 //get employees pending approvel
-router.get("/approve", async (req, res) => {
-  try {
-    const employees = await Employee.find({ isApproved: false });
-    res.status(200).json(employees);
-  } catch (err) {
-    res.status(500).json(err);
+router.get("/approve", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const employees = await Employee.find({ isApproved: false });
+      res.status(200).json(employees);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not allowed employees!");
   }
 });
 
