@@ -19,40 +19,24 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-//Update original
+// Update original
 
-// router.put("/:id", verify, async (req, res) => {
-//   if (req.user.id === req.params.id || req.user.isAdmin) {
-//     try {
-//       const updateStudent = await Student.findByIdAndUpdate(
-//         req.params.id,
-//         {
-//           $set: req.body,
-//         },
-//         { new: true }
-//       );
-//       res.status(200).json(updateStudent);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   } else {
-//     res.status(403).json("you can updat your own account");
-//   }
-// });
-
-//test
-router.put("/:id", async (req, res) => {
-  try {
-    const updateStudent = await Student.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updateStudent);
-  } catch (err) {
-    res.status(500).json(err);
+router.put("/:id", verify, async (req, res) => {
+  if (req.user.id === req.params.id || req.user.isAdmin) {
+    try {
+      const updateStudent = await Student.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+      res.status(200).json(updateStudent);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("you can updat your own account");
   }
 });
 
