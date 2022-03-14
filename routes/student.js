@@ -19,7 +19,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-// Update original
+// Update
 
 router.put("/:id", verify, async (req, res) => {
   if (
@@ -83,27 +83,17 @@ router.get("/find/:id", verify, async (req, res) => {
       res.status(500).json(err);
     }
 });
-//get approved students original
-// router.get("/", verify, async (req, res) => {
-//   if (req.user.isAdmin || req.user.isEmployee) {
-//     try {
-//       const students = await Student.find({ isApproved: true });
-//       res.status(200).json(students);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   } else {
-//     res.status(403).json("You are not allowed to see all students!");
-//   }
-// });
-
-// get approved students test
-router.get("/", async (req, res) => {
-  try {
-    const students = await Student.find({ isApproved: true });
-    res.status(200).json(students);
-  } catch (err) {
-    res.status(500).json(err);
+//get approved students
+router.get("/", verify, async (req, res) => {
+  if (req.user.isAdmin || req.user.isEmployee) {
+    try {
+      const students = await Student.find({ isApproved: true });
+      res.status(200).json(students);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You are not allowed to see all students!");
   }
 });
 
