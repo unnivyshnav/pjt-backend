@@ -173,73 +173,77 @@ router.get("/approve", verify, async (req, res) => {
 // });
 
 //approve student test case
-router.put("/approve/:id", async (req, res) => {
-  try {
-    const updateStudent = await Student.findByIdAndUpdate(
-      req.params.id,
-      {
-        isApproved: true,
-      },
-      { new: true }
-    );
-    const student = await Student.findById(req.params.id);
-    var studentID = student._id.toString();
-    studentID = studentID.substring(7, 11);
-    console.log(studentID);
-    var studentCourse = student.course;
-    studentCourse = studentCourse.substring(0, 4);
-    studentID = studentCourse + studentID;
-    const updateStudentID = await Student.findByIdAndUpdate(
-      req.params.id,
-      {
-        studentid: studentID,
-      },
-      { new: true }
-    );
-    res.status(200).json(updateStudent);
-    const mailid = student.email;
-    const message = "hi";
-    const sub = "Successfully Enrolled to ICTAK";
-    console.log(mailid);
-    async function sendMail() {
-      try {
-        const accessToken = await oAuth2Client.getAccessToken();
+router.put("/approve/:id", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const updateStudent = await Student.findByIdAndUpdate(
+        req.params.id,
+        {
+          isApproved: true,
+        },
+        { new: true }
+      );
+      const student = await Student.findById(req.params.id);
+      var studentID = student._id.toString();
+      studentID = studentID.substring(7, 11);
+      console.log(studentID);
+      var studentCourse = student.course;
+      studentCourse = studentCourse.substring(0, 4);
+      studentID = studentCourse + studentID;
+      const updateStudentID = await Student.findByIdAndUpdate(
+        req.params.id,
+        {
+          studentid: studentID,
+        },
+        { new: true }
+      );
+      res.status(200).json(updateStudent);
+      const mailid = student.email;
+      const message = "hi";
+      const sub = "Successfully Enrolled to ICTAK";
+      console.log(mailid);
+      async function sendMail() {
+        try {
+          const accessToken = await oAuth2Client.getAccessToken();
 
-        const transport = nodemailer.createTransport({
-          service: "gmail",
-          secure: true,
-          auth: {
-            type: "OAuth2",
-            user: "kuvyshnav@gmail.com",
-            clientId: CLIENT_ID,
-            clientSecret: CLEINT_SECRET,
-            refreshToken: REFRESH_TOKEN,
-            accessToken: accessToken,
-          },
-          tls: { rejectUnauthorized: false },
-        });
+          const transport = nodemailer.createTransport({
+            service: "gmail",
+            secure: true,
+            auth: {
+              type: "OAuth2",
+              user: "kuvyshnav@gmail.com",
+              clientId: CLIENT_ID,
+              clientSecret: CLEINT_SECRET,
+              refreshToken: REFRESH_TOKEN,
+              accessToken: accessToken,
+            },
+            tls: { rejectUnauthorized: false },
+          });
 
-        const mailOptions = {
-          from: "Vyshnav K U <kuvyshnav@gmail.com>",
-          to: mailid,
-          subject: sub,
-          text: message,
-          html: "<h3>{message}</h3>",
-        };
+          const mailOptions = {
+            from: "Vyshnav K U <kuvyshnav@gmail.com>",
+            to: mailid,
+            subject: sub,
+            text: message,
+            html: "<h3>{message}</h3>",
+          };
 
-        const result = await transport.sendMail(mailOptions);
-        return result;
-      } catch (error) {
-        return error;
+          const result = await transport.sendMail(mailOptions);
+          return result;
+        } catch (error) {
+          return error;
+        }
       }
-    }
 
-    sendMail();
-    // .then((result) => res.json("response Mail Sent Succesfully"))
-    // .catch((error) => res.json("response Heading Something Went Wrong"));
-  } catch (err) {
-    //   res.status(500).json(err);
-    //aaaaaa
+      sendMail();
+      // .then((result) => res.json("response Mail Sent Succesfully"))
+      // .catch((error) => res.json("response Heading Something Went Wrong"));
+    } catch (err) {
+      //   res.status(500).json(err);
+      //aaaaaa
+    }
+  } else {
+    res.status(403).json("you can updat your own account");
   }
 });
 
