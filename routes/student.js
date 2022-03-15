@@ -6,11 +6,11 @@ const { google } = require("googleapis");
 
 // gmail access
 const CLIENT_ID =
-  "224122484492-4bstbv782g6rqq8ct464esbjkq8bbiqn.apps.googleusercontent.com";
-const CLEINT_SECRET = "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";
+  "589697857291-ltkmvfhnp51d8fcgqmlq2ed0ra55tqvh.apps.googleusercontent.com";
+const CLEINT_SECRET = "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";
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 const REFRESH_TOKEN =
-  "1//04sF-IaK5aN5NCgYIARAAGAQSNwF-L9IrEon2MpnK7ZLvZH8UdEKBgfWMDmhZMsBfR76DFO8FZjTFBufEj4q5zejOYZu8EdtptbY";
+  "1//04GGoXF3WBIRmCgYIARAAGAQSNwF-L9IrB1OGpGEjqBq224W2FVdQnMZNWikc9D0ds5OCbJRhb7zXmOcU0k8-jleQ8dmCYm7RMDo";
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
