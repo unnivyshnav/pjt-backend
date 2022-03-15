@@ -72,7 +72,6 @@ router.post("/login/student", async (req, res) => {
     );
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
     originalPassword !== req.body.password &&
-      student.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
     !student.isApproved && res.status(403).json("Not Approved by admin");
     const accessToken = jwt.sign(
