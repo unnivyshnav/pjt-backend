@@ -17,7 +17,7 @@ router.post("/", verify, async (req, res) => {
   }
 });
 
-//Update original
+//Update
 router.put("/:id", verify, async (req, res) => {
   if (req.user.isAdmin) {
     try {
@@ -38,7 +38,6 @@ router.put("/:id", verify, async (req, res) => {
 });
 
 // delete
-
 router.delete("/:id", verify, async (req, res) => {
   if (req.user.isAdmin) {
     try {
@@ -62,6 +61,7 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //get all courses
 router.get("/", async (req, res) => {
   try {

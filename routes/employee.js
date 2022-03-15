@@ -22,8 +22,8 @@ router.put("/:id", verify, async (req, res) => {
     res.status(403).json("you can updat your own account");
   }
 });
-//delete
 
+//delete
 router.delete("/:id", verify, async (req, res) => {
   if (req.user.id === req.params.id || req.user.isAdmin) {
     try {
@@ -37,6 +37,7 @@ router.delete("/:id", verify, async (req, res) => {
   }
 });
 //get
+
 router.get("/find/:id", async (req, res) => {
   try {
     const employee = await Employee.findById(req.params.id);
