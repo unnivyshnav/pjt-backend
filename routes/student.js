@@ -160,7 +160,7 @@ router.put("/approve/:id", verify, async (req, res) => {
           });
 
           const mailOptions = {
-            from: "Vyshnav K U <ictak.enrollment@gmail.com>",
+            from: "ICTAK Academy <ictak.enrollment@gmail.com>",
             to: mailid,
             subject: sub,
             text: message,
