@@ -104,7 +104,6 @@ router.post("/login/employee", async (req, res) => {
     );
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
     originalPassword !== req.body.password &&
-      employee.password !== req.body.password &&
       res.status(401).json("Wrong Password or Username");
     const accessToken = jwt.sign(
       {
