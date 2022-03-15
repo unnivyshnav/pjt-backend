@@ -14,7 +14,6 @@ router.post("/student-register", async (req, res) => {
       req.body.password,
       process.env.SECRET_KEY
     ).toString(),
-    password: req.body.password,
     address: req.body.address,
     phone: req.body.phone,
     qualification: req.body.qualification,
