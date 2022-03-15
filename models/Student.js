@@ -25,6 +25,7 @@ const StudentSchema = new mongoose.Schema(
     fee: { type: Number, default: 00 },
     exitExamMark: { type: String, default: "NA" },
     isApproved: { type: Boolean, default: false },
+    paymentDetails: { type: String },
   },
   { timestamps: true }
 );
