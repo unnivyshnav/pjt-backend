@@ -164,7 +164,7 @@ router.put("/approve/:id", verify, async (req, res) => {
             to: mailid,
             subject: sub,
             text: message,
-            html: "<h3>{message}</h3>",
+            html: `<h3>${message}</h3>`,
           };
 
           const result = await transport.sendMail(mailOptions);
