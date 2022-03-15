@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Student = require("../models/Student");
 const Employee = require("../models/Employee");
 const Admin = require("../models/Admin");
-// const CryptoJS = require("crypto-js");
+const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 //Student Registration
@@ -10,10 +10,10 @@ router.post("/student-register", async (req, res) => {
   const newStudent = new Student({
     name: req.body.name,
     email: req.body.email,
-    // password: CryptoJS.AES.encrypt(
-    //   req.body.password,
-    //   process.env.SECRET_KEY
-    // ).toString(),
+    password: CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.SECRET_KEY
+    ).toString(),
     password: req.body.password,
     address: req.body.address,
     phone: req.body.phone,
