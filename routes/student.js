@@ -138,7 +138,7 @@ router.put("/approve/:id", verify, async (req, res) => {
       );
       res.status(200).json(updateStudent);
       const mailid = student.email;
-      const message = "hi";
+      const message = `<h3>Congratulations &{student.name}.</h3><br><h4>You have been successfully enrolled for ${student.course}.</h4><br><p>Your payment of rupees ${student.fee} is successful<p><br><br><br><p>Regards,</P><br><h6>Team ICTAK</h6>   `;
       const sub = "Successfully Enrolled to ICTAK";
       console.log(mailid);
       async function sendMail() {
@@ -164,7 +164,7 @@ router.put("/approve/:id", verify, async (req, res) => {
             to: mailid,
             subject: sub,
             text: message,
-            html: `<h3>${message}</h3>`,
+            html: message,
           };
 
           const result = await transport.sendMail(mailOptions);
