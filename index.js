@@ -24,6 +24,8 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+
+    autoIndex: true, //make this also true
   })
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
